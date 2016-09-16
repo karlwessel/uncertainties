@@ -1,9 +1,9 @@
 uncertainties
 =============
 
-..
-    .. image:: https://travis-ci.org/lebigot/uncertainties.png
-       :target: https://travis-ci.org/lebigot/uncertainties
+
+.. image:: https://travis-ci.org/lebigot/uncertainties.png
+   :target: https://travis-ci.org/lebigot/uncertainties
 
 This is the uncertainties Python package, which performs transparent
 calculations with uncertainties (aka "error propagation"). This package
@@ -19,7 +19,7 @@ GitHub
 
 The current version of the ``master*`` branches in the Github
 repository are bleeding-edge, but they are *working* versions that
-passed the tests for all versions of Python starting at 2.4.
+passed the tests for many versions of Python starting at 2.4.
 
 The ``master`` branch is for Python 2.7+ (including Python 3+ through
 ``2to3``), while the ``master_python2.3`` branch is for Python 2.3 to
