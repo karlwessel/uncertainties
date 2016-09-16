@@ -13,11 +13,15 @@ environment:
     #- PYTHON_VERSION: 2.6
     #  PYTHON_ARCH: "64"
     #  MINICONDA: C:\Miniconda-x64
-    - PYTHON_VERSION: 3.5
-      PYTHON_ARCH: "64"
-      MINICONDA: C:\Miniconda3-x64
-    # not running the tests on 32 bit Python at the moment
-    # as AppVeyor is just too slow
+    # In principle, the Python 2.6 version could be converted for Python 3 and
+    # tested. However, this is not the official way of obtaining a Python 3
+    # version (using the master branch is), so the tests have not been
+    # adjusted to work with Python 3, and no testing should be done:
+    #- PYTHON_VERSION: 3.5
+    #  PYTHON_ARCH: "64"
+    #  MINICONDA: C:\Miniconda3-x64
+    # Not running the tests on 32 bit Python at the moment
+    # as AppVeyor is just too slow:
     #- PYTHON_VERSION: 2.7
     #  PYTHON_ARCH: "32"
     #  MINICONDA: C:\Miniconda
