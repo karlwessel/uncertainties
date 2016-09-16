@@ -8,9 +8,11 @@ environment:
     # See: http://stackoverflow.com/a/13751649/163740
     WITH_COMPILER: "cmd /E:ON /V:ON /C .\\appveyor\\run_with_compiler.cmd"
   matrix:
-    - PYTHON_VERSION: 2.6
-      PYTHON_ARCH: "64"
-      MINICONDA: C:\Miniconda-x64
+    # Not running the tests for Python 2.6. It is apparently harder
+    # to set up:
+    #- PYTHON_VERSION: 2.6
+    #  PYTHON_ARCH: "64"
+    #  MINICONDA: C:\Miniconda-x64
     - PYTHON_VERSION: 3.5
       PYTHON_ARCH: "64"
       MINICONDA: C:\Miniconda3-x64
