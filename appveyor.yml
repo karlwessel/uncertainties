@@ -7,7 +7,7 @@ environment:
     # /E:ON and /V:ON options are not enabled in the batch script intepreter
     # See: http://stackoverflow.com/a/13751649/163740
     WITH_COMPILER: "cmd /E:ON /V:ON /C .\\appveyor\\run_with_compiler.cmd"
-  matrix:
+#  matrix:
     # Not running the tests for Python 2.6. It is apparently harder
     # to set up:
     #- PYTHON_VERSION: 2.6
