@@ -1,7 +1,7 @@
 # coding=utf-8
 
 """
-Main module for the uncertainties package, with internals.
+Main module for the uncertainties package, with internal functions.
 """
 
 # The idea behind this module is to replace the result of mathematical
@@ -253,6 +253,7 @@ def to_affine_scalar(x):
 # partial_derivative(). Value chosen to as to get better numerical
 # results:
 try:
+    # New in Python 2.6:
     STEP_SIZE = sqrt(sys.float_info.epsilon)
 except AttributeError:
     STEP_SIZE = 1e-8
