@@ -5,7 +5,7 @@ sudo: false # use the new faster dockerized containers on Travis CI
 matrix:
     include:
     - python: "2.6"
-      env: DEPS="numpy==1.8 nose"
+      env: DEPS="numpy nose"
 
 before_install:
     - pip install setuptools --upgrade
