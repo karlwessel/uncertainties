@@ -1,7 +1,7 @@
 # coding=utf-8
 
 """
-Main module for the uncertainties package, with internals.
+Main module for the uncertainties package, with internal functions.
 """
 
 # The idea behind this module is to replace the result of mathematical
@@ -253,6 +253,7 @@ def to_affine_scalar(x):
 # partial_derivative(). Value chosen to as to get better numerical
 # results:
 try:
+    # New in Python 2.6:
     STEP_SIZE = sqrt(sys.float_info.epsilon)
 except AttributeError:
     STEP_SIZE = 1e-8
@@ -2911,7 +2912,13 @@ else:
 ###############################################################################
 # Parsing of values with uncertainties:
 
-POSITIVE_DECIMAL_UNSIGNED_OR_NON_FINITE = ur'((\d+)(\.\d*)?|nan|NAN|inf|INF)'
+# Parsing of (part of) numbers. The reason why the decimal part is
+# parsed (if any), instead of using the parsing built in float(), is
+# that the presence (or not) of a decimal point does matter, in the
+# semantics of some representations (e.g. .1(2.) = .1+/-2, whereas
+# .1(2) = .1+/-0.2), so just getting the numerical value of the part
+# in parentheses would not be sufficient.
+POSITIVE_DECIMAL_UNSIGNED_OR_NON_FINITE = ur'((\d*)(\.\d*)?|nan|NAN|inf|INF)'
 
 # Regexp for a number with uncertainty (e.g., "-1.234(2)e-6"), where
 # the uncertainty is optional (in which case the uncertainty is
@@ -2963,7 +2970,7 @@ def parse_error_in_parentheses(representation):
         # The 'main' part is the nominal value, with 'int'eger part, and
         # 'dec'imal part.  The 'uncert'ainty is similarly broken into its
         # integer and decimal parts.
-        (sign, main, main_int, main_dec, uncert, uncert_int, uncert_dec,
+        (sign, main, _, main_dec, uncert, uncert_int, uncert_dec,
          exponent) = match.groups()
     else:
         raise NotParenUncert("Unparsable number representation: '%s'."
@@ -2993,7 +3000,7 @@ def parse_error_in_parentheses(representation):
         # uncert_int represents an uncertainty on the last digits:
 
         # The number of digits after the period defines the power of
-        # 10 than must be applied to the provided uncertainty:
+        # 10 that must be applied to the provided uncertainty:
         if main_dec is None:
             num_digits_after_period = 0
         else:
@@ -3148,6 +3155,8 @@ def ufloat_fromstr(representation, tag=None):
         12.3(0.4)e-5
         169.0(7)
         169.1(15)
+        .123(4)
+        .1(.4)
 
         # NaN uncertainties:
         12.3(nan)
@@ -3155,6 +3164,11 @@ def ufloat_fromstr(representation, tag=None):
         3±nan
 
     Surrounding spaces are ignored.
+
+    About the "shorthand" notation: 1.23(3) == 1.23 ± 0.03 but
+    1.23(3.) == 1.23 ± 3.00. Thus, the presence of a decimal point in
+    the uncertainty signals an absolute uncertainty (instead of an
+    uncertainty on the last digits of the nominal value).
     """
 
     (nominal_value, std_dev) = str_to_number_with_uncert(

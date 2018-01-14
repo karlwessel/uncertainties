@@ -42,10 +42,10 @@ else:
 # Common options for distutils/setuptools's setup():
 setup_options = dict(
     name='uncertainties',
-    version='3.0.1',
+    version='3.0.2',
     author='Eric O. LEBIGOT (EOL)',
     author_email='eric.lebigot@normalesup.org',
-    url='http://pythonhosted.org/uncertainties/',
+    url='http://uncertainties-python-package.readthedocs.io/',
 
     license='''\
 This software can be used under one of the following two licenses: \
@@ -146,7 +146,7 @@ Installation or upgrade
 =======================
 
 Installation instructions are available on the `main web site
-<http://pythonhosted.org/uncertainties/#installation-and-download>`_
+<http://uncertainties-python-package.readthedocs.io/en/latest/index.html#installation-and-download>`_
 for this package.
 
 Contact
@@ -160,7 +160,7 @@ Version history
 
 Main changes:
 
-- 3.0: Massive speedup for operations involving large numbers of numbers with uncertainty, like ``sum(ufloat(1, 1) for _ in xrange(100000))`` (this is about 5,000 times faster than before).
+- 3.0: Massive speedup for some operations involving large numbers of numbers with uncertainty, like ``sum(ufloat(1, 1) for _ in xrange(100000))`` (this is about 5,000 times faster than before).
 - 2.4.8: Friendlier completions in Python shells, etc.: internal functions should not appear anymore (for the user modules: ``uncertainties``, ``uncertainties.umath`` and  ``uncertainties.unumpy``). Parsing the shorthand notation (e.g. ``3.1(2)``) now works with infinite values (e.g. ``-inf(inf)``); this mirrors the ability to print such numbers with uncertainty. The Particle Data Group rounding rule is applied in more cases (e.g. printing 724.2±26.2 now gives ``724±26``). The shorthand+LaTeX formatting of numbers with an infinite nominal value is fixed. ``uncertainties.unumpy.matrix`` now uses ``.std_devs`` instead of ``.std_devs()``, for consistency with floats with uncertainty (automatic conversion of code added to ``uncertainties.1to2``).
 - 2.4.7: String formatting now works for ``(-)inf+/-...`` numbers.
 - 2.4.5: String formatting now works for ``NaN+/-...`` numbers.
@@ -281,17 +281,16 @@ Main changes:
   ``covariance_matrix()``.
 
 .. _Python: http://docs.python.org/tutorial/interpreter.html
-.. _IPython: http://ipython.scipy.org/
+.. _IPython: http://ipython.readthedocs.io/en/stable/
 .. _NumPy: http://numpy.scipy.org/
 .. _math: http://docs.python.org/library/math.html
 .. _PEP 8: http://www.python.org/dev/peps/pep-0008/
 .. _error propagation theory: http://en.wikipedia.org/wiki/Propagation_of_uncertainty
 .. _Eric O. LEBIGOT (EOL): mailto:eric.lebigot@normalesup.org
 .. _PayPal: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4TK7KNDTEDT4S
-.. _main website: http://pythonhosted.org/uncertainties/
-.. _code updater: http://pythonhosted.org/uncertainties/#migration-from-version-1-to-version-2
-.. _formatting: http://pythonhosted.org/uncertainties/user_guide.html#printing
-''',
+.. _main website: http://uncertainties-python-package.readthedocs.io/
+.. _code updater: http://uncertainties-python-package.readthedocs.io/en/latest/index.html#migration-from-version-1-to-version-2
+.. _formatting: http://uncertainties-python-package.readthedocs.io/en/latest/user_guide.html#printing''',
 
     keywords=['error propagation', 'uncertainties',
               'uncertainty calculations',
@@ -320,6 +319,7 @@ Main changes:
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: Implementation :: Jython',
         'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Education',
