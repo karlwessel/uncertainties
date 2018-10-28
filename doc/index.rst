@@ -131,7 +131,14 @@ Under Unix, it may be necessary to prefix the commands below with
 ``sudo``, so that the installation program has **sufficient access
 rights to the system**.
 
-If you have `pip <http://pip.openplans.org/>`_, you can try to install
+If you use the `Anaconda distribution <https://www.anaconda.com>`_, 
+you can install the latest version with
+
+.. code-block:: sh
+
+   conda install -c conda-forge uncertainties
+
+If you have `pip <hhttps://pypi.org/project/pip/`_, you can try to install
 the latest version with
 
 .. code-block:: sh
@@ -392,11 +399,11 @@ Don Peterson, Mika Pflueger, Albert Puig, Abraham Lee, Arian Sanusi,
 Martin Laloux, Jonathan Whitmore, Federico Vaggi, Marco A. Ferra,
 Hernan Grecco, David Zwicker, James Hester, Andrew Nelson, and many others.
 
-I am grateful to the Anaconda, macOS and Linux distribution maintainers 
-of this package (Jonathan Stickel, David Paleino, Federico Ceratto, 
-Roberto Colistete Jr, Filipe Pires Alvarenga Fernandes, and Felix Yan) 
-and also to Gabi Davar and Pierre Raybaut for including it in 
-`Python(x,y)`_ and to Christoph Gohlke for including it in his Base 
+I am grateful to the Anaconda, macOS and Linux distribution maintainers
+of this package (Jonathan Stickel, David Paleino, Federico Ceratto,
+Roberto Colistete Jr, Filipe Pires Alvarenga Fernandes, and Felix Yan)
+and also to Gabi Davar and Pierre Raybaut for including it in
+`Python(x,y)`_ and to Christoph Gohlke for including it in his Base
 distribution of `scientific Python packages`_ for Windows.
 
 
@@ -413,7 +420,7 @@ following options can be chosen:
    this package.
 
 .. _Python: http://python.org/
-.. _Python(x,y): https://code.google.com/p/pythonxy/
+.. _Python(x,y): https://python-xy.github.io/
 .. _scientific Python packages: http://www.lfd.uci.edu/~gohlke/pythonlibs/
 .. _error propagation theory: http://en.wikipedia.org/wiki/Propagation_of_uncertainty
 .. _invoking the Python interpreter: http://docs.python.org/tutorial/interpreter.html

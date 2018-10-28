@@ -391,6 +391,9 @@ The resulting form can generally be parsed back with
 The nominal value and the uncertainty always have the **same
 precision**: this makes it easier to compare them.
 
+Standard formats
+----------------
+
 .. Formatting method:
 
 More **control over the format** can be obtained (in Python 2.6+)
@@ -411,21 +414,15 @@ with the ``n`` format type. In particular, a fill character, an
 alignment option, a sign or zero option, a width, or the ``%`` format
 type are all supported.
 
+The usual **float formats with a precision** retain their original
+meaning (e.g. ``.2e`` uses two digits after the decimal point): code
+that works with floats produces similar results when running with
+numbers with uncertainties.
+
+Precision control
+-----------------
+
 .. Precision control:
-
-When :mod:`uncertainties` must **choose the number of significant
-digits on the uncertainty**, it is defined with the `Particle
-Data Group
-<http://PDG.lbl.gov/2010/reviews/rpp2010-rev-rpp-intro.pdf>`_ rounding
-rules (these rules keep the number of digits small, which is
-convenient for reading numbers with uncertainties, and at the same
-time prevent the uncertainty from being displayed with too few
-digits):
-
->>> print 'Automatic number of digits on the uncertainty: {}'.format(x)
-Automatic number of digits on the uncertainty: 0.200+/-0.010
->>> print x
-0.200+/-0.010
 
 It is possible to **control the number of significant digits of the
 uncertainty** by adding the precision modifier ``u`` after the
@@ -441,11 +438,59 @@ the empty format type, etc.):
 >>> print '1 significant digit, percentage: {:.1u%}'.format(x)
 1 significant digit, percentage: (20+/-1)%
 
-The usual **float formats with a precision** retain their original
-meaning (e.g. ``.2e`` uses two digits after the decimal point): code
-that works with floats produces similar results when running with
-numbers with uncertainties.
+When :mod:`uncertainties` must **choose the number of significant
+digits on the uncertainty**, it uses the `Particle
+Data Group
+<http://PDG.lbl.gov/2010/reviews/rpp2010-rev-rpp-intro.pdf>`_ rounding
+rules (these rules keep the number of digits small, which is
+convenient for reading numbers with uncertainties, and at the same
+time prevent the uncertainty from being displayed with too few
+digits):
 
+>>> print 'Automatic number of digits on the uncertainty: {}'.format(x)
+Automatic number of digits on the uncertainty: 0.200+/-0.010
+>>> print x
+0.200+/-0.010
+
+Custom options
+--------------
+
+.. Options:
+
+:mod:`uncertainties` provides even more flexibility through custom
+formatting options. They can be added at the end of the format string:
+
+- ``P`` for **pretty-printing**:
+
+  >>> print '{:.2e}'.format(x)
+  (2.00+/-0.10)e-01
+  >>> print u'{:.2eP}'.format(x)
+  (2.00±0.10)×10⁻¹
+
+  The pretty-printing mode thus uses "±", "×" and superscript
+  exponents. Note that the pretty-printing mode implies using
+  **Unicode format strings** (``u'…'`` in Python 2, but simply ``'…'``
+  in Python 3).
+
+- ``S`` for the **shorthand notation**:
+
+  >>> print '{:+.1uS}'.format(x)  # Sign, 1 digit for the uncertainty, shorthand
+  +0.20(1)
+
+  In this notation, the digits in parentheses represent the
+  uncertainty on the last digits of the nominal value.
+
+- ``L`` for a **LaTeX** output:
+
+  >>> print x*1e7
+  (2.00+/-0.10)e+06
+  >>> print '{:L}'.format(x*1e7)  # Automatic exponent form, LaTeX
+  \left(2.00 \pm 0.10\right) \times 10^{6}
+
+These custom formatting options **can be combined** (when meaningful).
+
+Details
+-------
 
 .. Common exponent:
 
@@ -467,26 +512,6 @@ be factored.) Thanks to this feature, each part (nominal value and
 standard deviation) is correctly aligned across multiple lines, while the
 relative magnitude of the error can still be readily estimated thanks to
 the common exponent.
-
-.. Options:
-
-Formatting options can be added at the end of the format string: ``S``
-for the **shorthand notation**, ``L`` for a **LaTeX** output, ``P``
-for **pretty-printing**:
-
->>> print '{:+.1uS}'.format(x)  # Sign, 1 digit for the uncertainty, shorthand
-+0.20(1)
->>> print '{:L}'.format(x*1e7)  # Automatic exponent form, LaTeX
-\left(2.00 \pm 0.10\right) \times 10^{6}
-
-The pretty-printing mode uses "±" and superscript exponents: the
-default output is such that ``print '{:.2e}'.format(x)`` yields
-"(2.00+/-0.10)e-01", whereas the pretty-printing mode in ``print
-u'{:.2eP}'.format(x)`` yields "(2.00±0.10)×10\ :sup:`-1`\ ". Note that
-the pretty-printing mode implies using Unicode format strings
-(``u'…'`` in Python 2, but simply ``'…'`` in Python 3).
-
-These formatting options can be combined (when meaningful).
 
 .. Special cases:
 

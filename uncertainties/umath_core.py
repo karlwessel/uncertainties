@@ -15,7 +15,6 @@ from __future__ import division  # Many analytical derivatives depend on this
 import math
 import sys
 import itertools
-import inspect
 
 # Local modules
 import uncertainties.core as uncert_core
@@ -192,8 +191,8 @@ fixed_derivatives = {
     'cos': [lambda x: -math.sin(x)],
     'cosh': [math.sinh],
     'degrees': [lambda x: math.degrees(1)],
-    'erf': [lambda x: exp(-x**2)*erf_coef],
-    'erfc': [lambda x: -exp(-x**2)*erf_coef],
+    'erf': [lambda x: math.exp(-x**2)*erf_coef],
+    'erfc': [lambda x: -math.exp(-x**2)*erf_coef],
     'exp': [math.exp],
     'expm1': [math.exp],
     'fabs': [_deriv_fabs],

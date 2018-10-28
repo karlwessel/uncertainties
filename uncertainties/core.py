@@ -30,13 +30,20 @@ except ImportError:
 try:
     from math import isinfinite  # !! Python 3.2+
 except ImportError:
-    isinfinite = lambda x: isinf(x) or isnan(x)
+    def isinfinite(x): return isinf(x) or isnan(x)
 
 import copy
 import warnings
 import itertools
 import inspect
 import collections
+
+# The following restricts the local function getargspec() to the common
+# features of inspect.getargspec() and inspect.getfullargspec():
+if sys.version_info < (3,):
+    from inspect import getargspec
+else:
+    from inspect import getfullargspec as getargspec
 
 # Attributes that are always exported (some other attributes are
 # exported only if the NumPy module is available...):
@@ -117,7 +124,7 @@ except ImportError:
 else:
 
     # NumPy numbers do not depend on Variable objects:
-    FLOAT_LIKE_TYPES += (numpy.number,)
+    FLOAT_LIKE_TYPES += (numpy.generic,)
     CONSTANT_TYPES += FLOAT_LIKE_TYPES[-1:]
 
     # Entering variables as a block of correlated values.  Only available
@@ -542,7 +549,7 @@ def wrap(f, derivatives_args=[], derivatives_kwargs={}):
     # additional derivatives:
 
     try:
-        argspec = inspect.getargspec(f)
+        argspec = getargspec(f)
     except TypeError:
         # Some functions do not provide meta-data about their
         # arguments (see PEP 362). One cannot use keyword arguments
